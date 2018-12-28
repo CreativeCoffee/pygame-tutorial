@@ -1,10 +1,11 @@
 # import and init pygame.
 import pygame
+import time
 pygame.init()
 
 # Variables
-width = 600
-height = 800
+width = 800
+height = 600
 fps = 60
 black = (0,0,0)
 white = (255,255,255)
@@ -17,6 +18,22 @@ playerwidth = 73
 
 def displayplayer(x,y):
     window.blit(player, (x,y))
+
+def textObjects(text, font):
+    txtSurf = font.render(text, True, black)
+    return txtSurf, txtSurf.get_rect()
+
+def gameovermsg(text):
+    largetxt = pygame.font.Font('Raleway-Bold.ttf', 80)
+    TextSurf, TextRect = textObjects(text, largetxt)
+    TextRect.center = ((width / 2), (height / 2))
+    window.blit(TextSurf, TextRect)
+    pygame.display.update()
+    time.sleep(2)
+    main()
+
+def playerlose():
+    gameovermsg('You Crashed!')
 
 # main game loop
 def main():
@@ -45,7 +62,8 @@ def main():
         displayplayer(x,y)
         if x > width - playerwidth or x < 0:
             print("Out of Bounds!")
-            gameOver = True
+            playerlose()
+
 
         # update screen and fps.
         pygame.display.update()
