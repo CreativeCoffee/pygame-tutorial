@@ -17,6 +17,11 @@ clock = pygame.time.Clock()
 player = pygame.image.load("racecar.png")
 playerwidth = 73
 
+def scoreboard(score):
+    font = pygame.font.SysFont(None, 25)
+    text = font.render("Score: " + str(score), True, black)
+    window.blit(text, (0,0))
+
 def blocks(blockx, blocky, blockw, blockh, color):
     pygame.draw.rect(window, color, [blockx, blocky, blockw, blockh])
 
@@ -51,6 +56,7 @@ def main():
     blockspeed = 7
     blockwidth = 100
     blockheight = 100
+    numberofblocksdodged = 0
 
     # is game running?
     while not gameOver:
@@ -71,12 +77,15 @@ def main():
         blocks(blockstartingpositionX, blockstartingpositionY, blockwidth, blockheight, red)
         blockstartingpositionY += blockspeed
         displayplayer(x,y)
+        scoreboard(numberofblocksdodged)
         if x > width - playerwidth or x < 0:
             print("Out of Bounds!")
             playerlose()
         if blockstartingpositionY > height:
             blockstartingpositionY = 0 - blockheight
             blockstartingpositionX = random.randrange(0, width)
+            numberofblocksdodged += 1
+            blockspeed += 1
         if y < blockstartingpositionY+blockheight:
             print("Y Cross")
             if x > blockstartingpositionX and x < blockstartingpositionX + blockwidth or x + playerwidth > blockstartingpositionX and x + playerwidth < blockstartingpositionX + blockwidth:
