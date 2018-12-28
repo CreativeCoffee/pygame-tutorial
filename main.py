@@ -68,7 +68,6 @@ def main():
             print(event)
         x += x_change
         window.fill(white)
-        # blocks(blockx, blocky, blockw, blockh, colour):
         blocks(blockstartingpositionX, blockstartingpositionY, blockwidth, blockheight, red)
         blockstartingpositionY += blockspeed
         displayplayer(x,y)
@@ -77,8 +76,12 @@ def main():
             playerlose()
         if blockstartingpositionY > height:
             blockstartingpositionY = 0 - blockheight
-            blockstartingpositionX = random.randrange(0, width) 
-
+            blockstartingpositionX = random.randrange(0, width)
+        if y < blockstartingpositionY+blockheight:
+            print("Y Cross")
+            if x > blockstartingpositionX and x < blockstartingpositionX + blockwidth or x + playerwidth > blockstartingpositionX and x + playerwidth < blockstartingpositionX + blockwidth:
+                print("X Cross")
+                playerlose()
 
         # update screen and fps.
         pygame.display.update()
