@@ -18,7 +18,6 @@ playerwidth = 73
 def displayplayer(x,y):
     window.blit(player, (x,y))
 
-
 # main game loop
 def main():
     # local vars
